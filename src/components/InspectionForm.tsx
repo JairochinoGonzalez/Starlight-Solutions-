@@ -52,6 +52,7 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
   }, [defaultService]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [ticketId, setTicketId] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -79,7 +80,7 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
     setFormData((prev) => ({ ...prev, phone: formatted }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage(null);
 
@@ -115,7 +116,7 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(leadConfig.endpointUrl, {
+      const response = await fetch('/api/send-lead', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -153,6 +154,7 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
       const resolvedTicket =
         data?.ticketId || `SL-NV-${Math.floor(100000 + Math.random() * 900000)}`;
       setTicketId(resolvedTicket);
+      setSubmitted(true);
 
       // Keep confirmation card top cleanly aligned below sticky header on mobile and desktop
       setTimeout(() => {
@@ -170,6 +172,7 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
   };
 
   const handleResetAndGoHome = () => {
+    setSubmitted(false);
     setTicketId(null);
     setErrorMessage(null);
     setFormData({
@@ -225,18 +228,20 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
           </p>
         </div>
 
-        {ticketId ? (
+        {submitted ? (
           /* In-Page Starlight Dark & Gold Confirmation Card (Zero redirect / Zero reload) */
           <div className="bg-[#0B1120] border-2 border-[#F5B800] rounded-3xl p-6 sm:p-12 text-center shadow-[0_24px_70px_rgba(0,0,0,0.65)]">
             <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#F5B800]/15 text-[#F5B800] border-2 border-[#F5B800] flex items-center justify-center mx-auto mb-5 shadow-[0_0_32px_rgba(245,184,0,0.4)]">
               <CheckCircle2 className="w-9 h-9 sm:w-10 sm:h-10" />
             </div>
 
-            <span className="text-xs font-mono font-bold text-[#F5B800] tracking-widest uppercase block mb-2">
-              {t.form.ticketRef}: {ticketId}
-            </span>
-            <h3 className="text-2xl sm:text-4xl font-black text-[#ECE7DF] mb-3 font-display">
-              {lang === 'es' ? '¡Solicitud recibida!' : 'Request Received!'}
+            {ticketId && (
+              <span className="text-xs font-mono font-bold text-[#F5B800] tracking-widest uppercase block mb-2">
+                {t.form.ticketRef}: {ticketId}
+              </span>
+            )}
+            <h3 className="text-2xl sm:text-4xl font-black text-[#ECE7DF] mb-3 font-display text-balance">
+              {lang === 'es' ? '¡Gracias! Hemos recibido tu solicitud' : 'Thank You! We Have Received Your Request'}
             </h3>
             <p className="text-sm sm:text-base text-[#ECE7DF]/85 max-w-2xl mx-auto leading-relaxed mb-6">
               {lang === 'es'
@@ -315,6 +320,7 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
                 <button
                   type="button"
                   onClick={() => {
+                    setSubmitted(false);
                     setTicketId(null);
                     setErrorMessage(null);
                     setFormData({
