@@ -154,7 +154,7 @@ const ShinglePiece: React.FC<{ spec: ShingleSpec }> = ({ spec }) => {
         }}
       >
         <img
-          src="/src/assets/images/roof_shingle_detail_1793999755504.jpg"
+          src="/images/black-asphalt-shingle-detail.jpg"
           alt=""
           referrerPolicy="no-referrer"
           className="w-full h-full object-cover brightness-[0.65] contrast-125"

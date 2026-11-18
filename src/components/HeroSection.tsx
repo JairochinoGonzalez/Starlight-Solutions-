@@ -117,7 +117,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 className="relative z-10 w-[80%] h-[195px] sm:h-[235px] rounded-2xl overflow-hidden border-2 border-[#F5B800]/60 shadow-[0_30px_65px_rgba(0,0,0,0.85)] bg-[#080C14]"
               >
                 <img
-                  src="/src/assets/images/roof_shingle_detail_1793999755504.jpg"
+                  src="/images/black-asphalt-shingle-detail.jpg"
                   alt="Detalle de shingles negros de alta resistencia para el calor de Las Vegas"
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover brightness-95 contrast-125"

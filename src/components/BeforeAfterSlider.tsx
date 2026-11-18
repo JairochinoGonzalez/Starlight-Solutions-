@@ -15,7 +15,7 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ lang, onCt
   const containerRef = useRef<HTMLDivElement>(null);
 
   // EXACT SAME architectural roof photo used on BOTH sides for 100% 1:1 pixel alignment
-  const sameRoofImage = "/src/assets/images/roof_shingle_pristine_1794452425063.jpg";
+  const sameRoofImage = "/images/roof-hip-shingles.jpg";
 
   const updatePosition = useCallback((clientX: number) => {
     if (!containerRef.current) return;
