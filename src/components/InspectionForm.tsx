@@ -23,6 +23,7 @@ import { leadConfig } from '../config/leadConfig';
 
 interface InspectionFormProps {
   lang: Language;
+  activeView?: AppView;
   onNavigate: (view: AppView) => void;
   onBackToHome?: () => void;
   defaultService?: ServiceOption;
@@ -30,6 +31,7 @@ interface InspectionFormProps {
 
 export const InspectionForm: React.FC<InspectionFormProps> = ({
   lang,
+  activeView = 'home',
   onNavigate,
   onBackToHome,
   defaultService = 'roof_replacement',
@@ -47,14 +49,17 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
     notes: '',
   });
 
-  useEffect(() => {
-    setFormData((prev) => ({ ...prev, service: defaultService }));
-  }, [defaultService]);
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [ticketId, setTicketId] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    setSubmitted(false);
+    setTicketId(null);
+    setErrorMessage(null);
+    setFormData((prev) => ({ ...prev, service: defaultService }));
+  }, [activeView, defaultService]);
 
   const serviceNames: Record<ServiceOption, string> = {
     roof_repair: lang === 'es' ? 'Reparación de Goteras y Tejas de Asfalto' : 'Roof Leak & Shingle Repair',
@@ -214,19 +219,20 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
       />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-[0.2em] text-[#F5B800] uppercase mb-3">
-            <ClipboardCheck className="w-4 h-4" />
-            <span>{t.form.badge}</span>
+        {!submitted && (
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+            <div className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-[0.2em] text-[#F5B800] uppercase mb-3">
+              <ClipboardCheck className="w-4 h-4" />
+              <span>{t.form.badge}</span>
+            </div>
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-[#ECE7DF] tracking-tight font-display text-balance">
+              {t.form.title}
+            </h2>
+            <p className="mt-3 text-sm sm:text-base text-[#ECE7DF]/80 leading-relaxed">
+              {t.form.subtitle}
+            </p>
           </div>
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-[#ECE7DF] tracking-tight font-display text-balance">
-            {t.form.title}
-          </h2>
-          <p className="mt-3 text-sm sm:text-base text-[#ECE7DF]/80 leading-relaxed">
-            {t.form.subtitle}
-          </p>
-        </div>
+        )}
 
         {submitted ? (
           /* In-Page Starlight Dark & Gold Confirmation Card (Zero redirect / Zero reload) */

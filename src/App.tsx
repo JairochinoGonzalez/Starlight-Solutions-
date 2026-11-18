@@ -78,16 +78,37 @@ export default function App() {
     }
   };
 
+  const viewsWithForm: AppView[] = [
+    'home',
+    'roofing-insurance',
+    'windows',
+    'hvac',
+    'about-us',
+  ];
+
+  const getDefaultServiceForView = (view: AppView) => {
+    switch (view) {
+      case 'roofing-insurance':
+        return 'insurance_claim' as const;
+      case 'windows':
+        return 'windows_installation' as const;
+      case 'hvac':
+        return 'hvac_system' as const;
+      default:
+        return 'roof_replacement' as const;
+    }
+  };
+
   const scrollToSection = (id: string) => {
-    if (currentView !== 'home') {
+    if (!viewsWithForm.includes(currentView)) {
       navigateTo('home');
       setTimeout(() => {
         const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 120);
     } else {
       const el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -131,74 +152,46 @@ export default function App() {
               onNavigate={navigateTo}
               onScrollToForm={handleOpenForm}
             />
-
-            {/* Lead Capture Form Ready for Custom Domain Email */}
-            <InspectionForm
-              lang={lang}
-              onNavigate={navigateTo}
-              onBackToHome={handleReturnHome}
-            />
           </>
         )}
 
         {currentView === 'roofing-insurance' && (
-          <>
-            <RoofingInsuranceView
-              lang={lang}
-              onOpenForm={handleOpenForm}
-            />
-            <InspectionForm
-              lang={lang}
-              onNavigate={navigateTo}
-              onBackToHome={handleReturnHome}
-              defaultService="insurance_claim"
-            />
-          </>
+          <RoofingInsuranceView
+            lang={lang}
+            onOpenForm={handleOpenForm}
+          />
         )}
 
         {currentView === 'windows' && (
-          <>
-            <WindowsView
-              lang={lang}
-              onOpenForm={handleOpenForm}
-            />
-            <InspectionForm
-              lang={lang}
-              onNavigate={navigateTo}
-              onBackToHome={handleReturnHome}
-              defaultService="windows_installation"
-            />
-          </>
+          <WindowsView
+            lang={lang}
+            onOpenForm={handleOpenForm}
+          />
         )}
 
         {currentView === 'hvac' && (
-          <>
-            <HvacView
-              lang={lang}
-              onOpenForm={handleOpenForm}
-            />
-            <InspectionForm
-              lang={lang}
-              onNavigate={navigateTo}
-              onBackToHome={handleReturnHome}
-              defaultService="hvac_system"
-            />
-          </>
+          <HvacView
+            lang={lang}
+            onOpenForm={handleOpenForm}
+          />
         )}
 
         {currentView === 'about-us' && (
-          <>
-            <AboutUsView
-              lang={lang}
-              onOpenForm={handleOpenForm}
-            />
-            <InspectionForm
-              lang={lang}
-              onNavigate={navigateTo}
-              onBackToHome={handleReturnHome}
-              defaultService="roof_replacement"
-            />
-          </>
+          <AboutUsView
+            lang={lang}
+            onOpenForm={handleOpenForm}
+          />
+        )}
+
+        {/* Single Unified Lead Capture Form shared identically across Home & all Service Views */}
+        {viewsWithForm.includes(currentView) && (
+          <InspectionForm
+            lang={lang}
+            activeView={currentView}
+            onNavigate={navigateTo}
+            onBackToHome={handleReturnHome}
+            defaultService={getDefaultServiceForView(currentView)}
+          />
         )}
 
         {currentView === 'privacy-policy' && (
