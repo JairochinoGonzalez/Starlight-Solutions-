@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Language, AppView, LeadSubmissionReceipt } from './types';
+import { Language, AppView } from './types';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { BeforeAfterSlider } from './components/BeforeAfterSlider';
@@ -50,7 +50,6 @@ function detectInitialView(): AppView {
 export default function App() {
   const [lang, setLang] = useState<Language>('es');
   const [currentView, setCurrentView] = useState<AppView>(detectInitialView);
-  const [lastReceipt, setLastReceipt] = useState<LeadSubmissionReceipt | null>(null);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -69,20 +68,12 @@ export default function App() {
     }
   };
 
-  const handleSubmissionSuccess = (receipt: LeadSubmissionReceipt) => {
-    setLastReceipt(receipt);
-    setCurrentView('thank-you');
-    if (typeof window !== 'undefined') {
-      window.history.pushState({}, '', '/gracias');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
-
-  const handleReturnHomeFromThankYou = () => {
-    setLastReceipt(null);
+  const handleReturnHome = () => {
     setCurrentView('home');
     if (typeof window !== 'undefined') {
-      window.history.pushState({}, '', '/');
+      if (window.location.pathname !== '/') {
+        window.history.pushState({}, '', '/');
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
@@ -105,7 +96,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#071426] text-[#ECE7DF] flex flex-col font-sans selection:bg-[#F5B800] selection:text-[#0D2340] overflow-x-hidden relative">
+    <div className="min-h-screen bg-[#071426] text-[#ECE7DF] flex flex-col font-sans selection:bg-[#F5B800] selection:text-[#0D2340] overflow-x-clip relative">
       {/* Flying Black Asphalt Shingles Parallax Layer Across Scroll */}
       <FloatingShingles />
 
@@ -145,7 +136,7 @@ export default function App() {
             <InspectionForm
               lang={lang}
               onNavigate={navigateTo}
-              onSubmissionSuccess={handleSubmissionSuccess}
+              onBackToHome={handleReturnHome}
             />
           </>
         )}
@@ -159,7 +150,7 @@ export default function App() {
             <InspectionForm
               lang={lang}
               onNavigate={navigateTo}
-              onSubmissionSuccess={handleSubmissionSuccess}
+              onBackToHome={handleReturnHome}
               defaultService="insurance_claim"
             />
           </>
@@ -174,7 +165,7 @@ export default function App() {
             <InspectionForm
               lang={lang}
               onNavigate={navigateTo}
-              onSubmissionSuccess={handleSubmissionSuccess}
+              onBackToHome={handleReturnHome}
               defaultService="windows_installation"
             />
           </>
@@ -189,7 +180,7 @@ export default function App() {
             <InspectionForm
               lang={lang}
               onNavigate={navigateTo}
-              onSubmissionSuccess={handleSubmissionSuccess}
+              onBackToHome={handleReturnHome}
               defaultService="hvac_system"
             />
           </>
@@ -204,7 +195,7 @@ export default function App() {
             <InspectionForm
               lang={lang}
               onNavigate={navigateTo}
-              onSubmissionSuccess={handleSubmissionSuccess}
+              onBackToHome={handleReturnHome}
               defaultService="roof_replacement"
             />
           </>
@@ -220,8 +211,7 @@ export default function App() {
         {currentView === 'thank-you' && (
           <ThankYouView
             lang={lang}
-            receipt={lastReceipt}
-            onReturnHome={handleReturnHomeFromThankYou}
+            onReturnHome={handleReturnHome}
           />
         )}
       </main>

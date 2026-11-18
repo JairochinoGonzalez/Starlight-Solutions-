@@ -15,26 +15,26 @@ export const PrivacyPolicyView: React.FC<PrivacyPolicyViewProps> = ({
   const t = translations[lang];
 
   return (
-    <div className="py-16 bg-[#071426] text-[#ECE7DF] animate-in fade-in duration-300">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <div className="py-10 sm:py-16 bg-[#071426] text-[#ECE7DF] animate-in fade-in duration-300 relative z-10">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
         
         {/* Navigation Back */}
         <button
           type="button"
           onClick={onNavigateHome}
-          className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#F5B800] hover:underline cursor-pointer"
+          className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#F5B800] hover:underline cursor-pointer py-2"
         >
-          <ArrowLeft className="w-4 h-4" />
-          <span>{lang === 'es' ? '← Volver al Inicio' : '← Return to Home'}</span>
+          <ArrowLeft className="w-4 h-4 shrink-0" />
+          <span>{lang === 'es' ? 'Volver al Inicio' : 'Return to Home'}</span>
         </button>
 
         {/* Header */}
         <div className="space-y-3 pb-8 border-b border-[#4A4F54]/40">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0D2340] border border-[#F5B800]/40 text-[#F5B800] text-xs font-mono font-bold">
-            <Lock className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-[0.18em] text-[#F5B800] uppercase">
+            <Lock className="w-3.5 h-3.5 shrink-0" />
             <span>Official Legal Governance</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black font-display text-white">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black font-display text-white text-balance">
             {t.privacy.title}
           </h1>
           <p className="text-xs sm:text-sm text-[#F5B800] font-mono">

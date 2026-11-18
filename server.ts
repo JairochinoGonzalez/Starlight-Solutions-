@@ -41,7 +41,7 @@ app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', service: 'starlight-solutions-leads' });
 });
 
-app.post('/api/leads', async (req, res) => {
+app.post(['/api/send-lead', '/api/leads'], async (req, res) => {
   try {
     const {
       fullName,
@@ -55,20 +55,20 @@ app.post('/api/leads', async (req, res) => {
     } = req.body || {};
 
     if (!fullName || typeof fullName !== 'string' || !fullName.trim()) {
-      return res.status(400).json({ ok: false, error: 'Full name is required.' });
+      return res.status(400).json({ ok: false, error: 'El nombre completo es obligatorio.' });
     }
     const cleanDigits = String(phone || '').replace(/\D/g, '');
     if (cleanDigits.length < 10) {
-      return res.status(400).json({ ok: false, error: 'Valid 10-digit phone number is required.' });
+      return res.status(400).json({ ok: false, error: 'Ingresa un número telefónico válido de 10 dígitos.' });
     }
     if (!propertyAddress || typeof propertyAddress !== 'string' || !propertyAddress.trim()) {
-      return res.status(400).json({ ok: false, error: 'Nevada property address is required.' });
+      return res.status(400).json({ ok: false, error: 'La dirección de la propiedad en Nevada es obligatoria.' });
     }
     if (!email || typeof email !== 'string' || !email.includes('@')) {
-      return res.status(400).json({ ok: false, error: 'Valid email address is required.' });
+      return res.status(400).json({ ok: false, error: 'Ingresa un correo electrónico válido.' });
     }
     if (!privacyConsent) {
-      return res.status(400).json({ ok: false, error: 'Privacy and TCPA consent is required.' });
+      return res.status(400).json({ ok: false, error: 'Debes aceptar la Política de Privacidad para continuar.' });
     }
 
     const ticketId = `SL-NV-${Math.floor(100000 + Math.random() * 900000)}`;
@@ -112,7 +112,7 @@ app.post('/api/leads', async (req, res) => {
             reply_to: leadRecord.email,
             subject: `[Lead ${ticketId}] ${leadRecord.service} - ${leadRecord.fullName}`,
             html: `
-              <div style="font-family: sans-serif; max-width: 600px; padding: 24px; background: #0D2340; color: #ECE7DF; border-radius: 12px;">
+              <div style="font-family: sans-serif; max-width: 600px; padding: 24px; background: #0B1120; color: #ECE7DF; border: 1px solid #F5B800; border-radius: 12px;">
                 <h2 style="color: #F5B800; margin-top: 0;">Nueva Solicitud - Starlight Solutions LLC</h2>
                 <p><strong>Ticket:</strong> ${ticketId}</p>
                 <p><strong>Nombre:</strong> ${leadRecord.fullName}</p>
@@ -152,7 +152,7 @@ app.post('/api/leads', async (req, res) => {
       }
     }
 
-    return res.status(201).json({
+    return res.status(200).json({
       ok: true,
       ticketId,
       createdAt,

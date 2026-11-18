@@ -121,35 +121,35 @@ export const ThankYouView: React.FC<ThankYouViewProps> = ({
           {receipt && (receipt.fullName || receipt.serviceLabel || receipt.propertyAddress) && (
             <div className="mt-7 p-4 sm:p-5 rounded-2xl bg-[#071426]/85 border border-[#4A4F54]/45 max-w-2xl mx-auto text-left grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               {receipt.fullName && (
-                <div>
+                <div className="min-w-0">
                   <span className="text-[#F5B800] font-mono uppercase block text-[10px]">
                     {lang === 'es' ? 'Propietario' : 'Homeowner'}
                   </span>
-                  <span className="text-[#ECE7DF] font-semibold text-sm">{receipt.fullName}</span>
+                  <span className="text-[#ECE7DF] font-semibold text-sm break-words block">{receipt.fullName}</span>
                 </div>
               )}
               {receipt.phone && (
-                <div>
+                <div className="min-w-0">
                   <span className="text-[#F5B800] font-mono uppercase block text-[10px]">
                     {lang === 'es' ? 'Teléfono' : 'Phone'}
                   </span>
-                  <span className="text-[#ECE7DF] font-mono font-semibold text-sm">{receipt.phone}</span>
+                  <span className="text-[#ECE7DF] font-mono font-semibold text-sm block">{receipt.phone}</span>
                 </div>
               )}
               {receipt.serviceLabel && (
-                <div>
+                <div className="min-w-0">
                   <span className="text-[#F5B800] font-mono uppercase block text-[10px]">
                     {lang === 'es' ? 'Servicio Solicitado' : 'Requested Service'}
                   </span>
-                  <span className="text-[#ECE7DF] font-semibold text-sm">{receipt.serviceLabel}</span>
+                  <span className="text-[#ECE7DF] font-semibold text-sm break-words block">{receipt.serviceLabel}</span>
                 </div>
               )}
               {receipt.propertyAddress && (
-                <div>
+                <div className="min-w-0">
                   <span className="text-[#F5B800] font-mono uppercase block text-[10px]">
                     {lang === 'es' ? 'Dirección en Nevada' : 'Property Address'}
                   </span>
-                  <span className="text-[#ECE7DF] font-semibold text-sm">{receipt.propertyAddress}</span>
+                  <span className="text-[#ECE7DF] font-semibold text-sm break-words block">{receipt.propertyAddress}</span>
                 </div>
               )}
             </div>
@@ -181,9 +181,9 @@ export const ThankYouView: React.FC<ThankYouViewProps> = ({
 
           {/* Direct Contact & Navigation Controls */}
           <div className="mt-8 pt-7 border-t border-[#4A4F54]/40 space-y-5">
-            <div className="inline-flex items-center gap-2 text-xs text-[#ECE7DF]/75 font-mono">
-              <Mail className="w-3.5 h-3.5 text-[#F5B800]" />
-              <span>
+            <div className="inline-flex items-center justify-center gap-2 text-xs text-[#ECE7DF]/75 font-mono max-w-full">
+              <Mail className="w-3.5 h-3.5 text-[#F5B800] shrink-0" />
+              <span className="break-all">
                 {lang === 'es'
                   ? `Equipo de atención: ${leadConfig.businessEmail}`
                   : `Team dispatch: ${leadConfig.businessEmail}`}

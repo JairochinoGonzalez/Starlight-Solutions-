@@ -49,15 +49,15 @@ export const RoofingInsuranceView: React.FC<RoofingInsuranceViewProps> = ({
   ];
 
   return (
-    <div className="py-12 sm:py-16 bg-[#071426] text-[#ECE7DF] animate-in fade-in duration-300 relative z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
+    <div className="py-10 sm:py-16 bg-[#071426] text-[#ECE7DF] animate-in fade-in duration-300 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-16">
         {/* Header */}
         <div className="text-center max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-[0.2em] text-[#F5B800] uppercase mb-3">
-            <ShieldCheck className="w-4 h-4 text-[#F5B800]" />
+            <ShieldCheck className="w-4 h-4 text-[#F5B800] shrink-0" />
             <span>{lang === 'es' ? 'Blindaje Estructural & Reclamos' : 'Structural Armor & Claims'}</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight font-display text-white leading-tight text-balance">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight font-display text-white leading-tight text-balance">
             {lang === 'es'
               ? 'Detén Goteras Hoy y Reclama el Techo que Tu Seguro Debe Cubrir'
               : 'Stop Roof Leaks Today & Claim the Roof Your Insurance Owes'}
@@ -70,14 +70,14 @@ export const RoofingInsuranceView: React.FC<RoofingInsuranceViewProps> = ({
         </div>
 
         {/* 3 Real Project & Roof Architecture Images */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
           {gallery.map((item, idx) => (
             <div
               key={idx}
               className="rounded-3xl bg-[#0D2340] border border-[#F5B800]/30 overflow-hidden shadow-xl flex flex-col justify-between group"
             >
               <div
-                className={`relative h-72 sm:h-80 w-full overflow-hidden border-b border-[#4A4F54]/40 ${
+                className={`relative h-60 sm:h-64 lg:h-72 w-full overflow-hidden border-b border-[#4A4F54]/40 ${
                   item.contain ? 'bg-[#F8E2C8] p-2' : 'bg-[#071426]'
                 }`}
               >
@@ -91,8 +91,8 @@ export const RoofingInsuranceView: React.FC<RoofingInsuranceViewProps> = ({
                   loading="eager"
                 />
               </div>
-              <div className="p-6">
-                <h3 className="text-lg font-bold text-[#F5B800] font-display mb-2">{item.title}</h3>
+              <div className="p-5 lg:p-6">
+                <h3 className="text-base lg:text-lg font-bold text-[#F5B800] font-display mb-2">{item.title}</h3>
                 <p className="text-xs sm:text-sm text-[#ECE7DF]/80 leading-relaxed">{item.caption}</p>
               </div>
             </div>
@@ -100,8 +100,8 @@ export const RoofingInsuranceView: React.FC<RoofingInsuranceViewProps> = ({
         </div>
 
         {/* 3 Material Systems Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-7 rounded-3xl glass-panel flex flex-col justify-between">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+          <div className="p-5 lg:p-7 rounded-3xl glass-panel flex flex-col justify-between">
             <div>
               <div className="w-11 h-11 rounded-2xl bg-[#F5B800]/15 border border-[#F5B800]/30 flex items-center justify-center text-[#F5B800] mb-4">
                 <Wind className="w-5 h-5" />

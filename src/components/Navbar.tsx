@@ -38,21 +38,21 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-[#071426]/88 backdrop-blur-xl border-b border-[#F5B800]/15 transition-all">
+    <header className="sticky top-0 z-50 bg-[#071426]/92 backdrop-blur-xl border-b border-[#F5B800]/15 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-4 sm:gap-8 h-20">
+        <div className="flex items-center justify-between gap-3 xl:gap-6 h-16 sm:h-[72px]">
           
           {/* Zone 1: Brand Wordmark */}
           <button
             type="button"
             onClick={() => handleLinkClick('home')}
-            className="cursor-pointer text-left focus:outline-none shrink-0"
+            className="cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5B800] rounded-lg shrink-0"
           >
             <OfficialLogo size="sm" variant="full" />
           </button>
 
           {/* Zone 2: Clean Single-Line Nav Links with Active Solar Gold Underline */}
-          <nav className="hidden lg:flex items-center gap-7 text-xs font-bold tracking-widest uppercase text-[#ECE7DF]/80">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-[11px] xl:text-xs font-bold tracking-wider xl:tracking-widest uppercase text-[#ECE7DF]/85 min-w-0">
             {navLinks.map((link) => {
               const isActive = currentView === link.view;
               return (
@@ -60,7 +60,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   key={link.view}
                   type="button"
                   onClick={() => handleLinkClick(link.view)}
-                  className={`relative py-2 whitespace-nowrap shrink-0 transition-colors cursor-pointer ${
+                  className={`relative py-2 whitespace-nowrap shrink-0 transition-colors cursor-pointer focus-visible:outline-none focus-visible:text-[#F5B800] ${
                     isActive
                       ? 'text-[#ECE7DF]'
                       : 'hover:text-[#F5B800]'
@@ -76,16 +76,16 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Zone 3: Language Switch + 1 Primary Action */}
-          <div className="hidden sm:flex items-center gap-3 shrink-0">
+          <div className="hidden sm:flex items-center gap-2.5 xl:gap-3 shrink-0">
             <div className="flex items-center gap-1 bg-[#0D2340] rounded-full p-1 border border-[#4A4F54]/40">
-              <Globe className="w-3.5 h-3.5 text-[#F5B800] ml-1.5" />
+              <Globe className="w-3.5 h-3.5 text-[#F5B800] ml-1.5 shrink-0" />
               <button
                 type="button"
                 onClick={() => onLanguageChange('en')}
                 className={`px-2 py-0.5 text-[11px] font-bold rounded-full transition-colors cursor-pointer ${
                   lang === 'en'
                     ? 'bg-[#F5B800] text-[#0D2340]'
-                    : 'text-[#ECE7DF]/70 hover:text-white'
+                    : 'text-[#ECE7DF]/75 hover:text-white'
                 }`}
               >
                 EN
@@ -96,7 +96,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className={`px-2 py-0.5 text-[11px] font-bold rounded-full transition-colors cursor-pointer ${
                   lang === 'es'
                     ? 'bg-[#F5B800] text-[#0D2340]'
-                    : 'text-[#ECE7DF]/70 hover:text-white'
+                    : 'text-[#ECE7DF]/75 hover:text-white'
                 }`}
               >
                 ES
@@ -106,15 +106,26 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               type="button"
               onClick={onOpenSchedule}
-              className="px-5 py-2.5 rounded-full bg-[#F5B800] hover:bg-[#FFD54F] active:scale-95 text-[#0D2340] font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-[#F5B800]/25 hover:shadow-[#F5B800]/40 flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer"
+              className="px-4 xl:px-5 py-2.5 rounded-full bg-[#F5B800] hover:bg-[#FFD54F] active:scale-95 text-[#0D2340] font-black text-[11px] xl:text-xs uppercase tracking-wider transition-all shadow-lg shadow-[#F5B800]/25 hover:shadow-[#F5B800]/40 flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer"
             >
               <span>{t.nav.ctaInspection}</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5 shrink-0" />
+            </button>
+
+            {/* Tablet Hamburger (shown only between sm and lg without duplicating language switch) */}
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden p-2 text-[#ECE7DF] hover:text-[#F5B800] rounded-lg border border-[#4A4F54]/40 bg-[#0D2340] transition-colors cursor-pointer min-h-[40px] min-w-[40px] flex items-center justify-center"
+              aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
 
-          {/* Mobile Right Controls (Language + Hamburger) */}
-          <div className="flex items-center gap-2 lg:hidden">
+          {/* Mobile Right Controls (< 640px: Language + Hamburger) */}
+          <div className="flex items-center gap-2 sm:hidden shrink-0">
             <button
               type="button"
               onClick={() => onLanguageChange(lang === 'es' ? 'en' : 'es')}
@@ -128,7 +139,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 text-[#ECE7DF] hover:text-[#F5B800] rounded-lg border border-[#4A4F54]/40 bg-[#0D2340] transition-colors cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center"
-              aria-label="Abrir menú"
+              aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+              aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -137,9 +149,9 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile / Tablet Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#071426]/98 backdrop-blur-xl border-b border-[#F5B800]/30 px-4 pt-3 pb-6 space-y-3 animate-in fade-in duration-200">
+        <div className="lg:hidden bg-[#071426]/98 backdrop-blur-xl border-b border-[#F5B800]/30 px-4 pt-3 pb-6 space-y-3 max-h-[calc(100dvh-4rem)] overflow-y-auto animate-in fade-in duration-200">
           <div className="flex flex-col space-y-1.5 text-sm font-semibold text-[#ECE7DF]">
             {navLinks.map((link) => {
               const isActive = currentView === link.view;

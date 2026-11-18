@@ -29,13 +29,13 @@ export const AppleBentoGrid: React.FC<AppleBentoGridProps> = ({
   return (
     <section
       id="bento-services"
-      className="py-16 sm:py-20 bg-[#071426] relative border-b border-[#4A4F54]/30 z-10 overflow-hidden"
+      className="scroll-mt-20 py-14 sm:py-20 bg-[#071426] relative border-b border-[#4A4F54]/30 z-10 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-[0.2em] text-[#F5B800] uppercase mb-3">
-            <Sparkles className="w-3.5 h-3.5" />
+            <Sparkles className="w-3.5 h-3.5 shrink-0" />
             <span>{t.bento.kicker}</span>
           </div>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-[#ECE7DF] tracking-tight font-display text-balance">
@@ -55,7 +55,7 @@ export const AppleBentoGrid: React.FC<AppleBentoGridProps> = ({
             >
               <div>
                 {/* Crisp Real Photo */}
-                <div className="relative h-56 sm:h-60 w-full overflow-hidden border-b border-[#4A4F54]/35">
+                <div className="relative h-52 sm:h-56 lg:h-60 w-full overflow-hidden border-b border-[#4A4F54]/35">
                   <img
                     src={pillar.image}
                     alt={pillar.imageAlt}
@@ -67,32 +67,32 @@ export const AppleBentoGrid: React.FC<AppleBentoGridProps> = ({
                 </div>
 
                 {/* Concise Pain-Point Content */}
-                <div className="p-6">
-                  <span className="text-[11px] font-mono font-bold tracking-[0.18em] text-[#F5B800] uppercase block mb-2">
+                <div className="p-5 lg:p-6">
+                  <span className="text-[11px] font-mono font-bold tracking-[0.16em] text-[#F5B800] uppercase block mb-2">
                     {pillar.eyebrow}
                   </span>
-                  <h3 className="text-xl font-extrabold text-[#ECE7DF] mb-2.5 font-display leading-snug">
+                  <h3 className="text-lg lg:text-xl font-extrabold text-[#ECE7DF] mb-2.5 font-display leading-snug">
                     {pillar.title}
                   </h3>
-                  <p className="text-sm text-[#ECE7DF]/80 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-[#ECE7DF]/80 leading-relaxed">
                     {pillar.painText}
                   </p>
                 </div>
               </div>
 
-              <div className="px-6 pb-6 pt-2 flex items-center justify-between gap-3">
+              <div className="px-5 lg:px-6 pb-5 lg:pb-6 pt-2 flex flex-wrap items-center justify-between gap-2.5">
                 <button
                   type="button"
                   onClick={() => handleOpenView(pillar.view)}
-                  className="text-xs font-bold text-[#F5B800] hover:text-[#FFD54F] flex items-center gap-1.5 transition-colors cursor-pointer min-h-[40px]"
+                  className="text-xs font-bold text-[#F5B800] hover:text-[#FFD54F] flex items-center gap-1.5 transition-colors cursor-pointer min-h-[40px] whitespace-nowrap"
                 >
                   <span>{pillar.ctaLabel}</span>
-                  <ArrowUpRight className="w-4 h-4" />
+                  <ArrowUpRight className="w-4 h-4 shrink-0" />
                 </button>
                 <button
                   type="button"
                   onClick={onScrollToForm}
-                  className="px-4 py-2 rounded-full bg-[#0D2340] hover:bg-[#F5B800] text-[#ECE7DF] hover:text-[#0D2340] border border-[#F5B800]/35 text-xs font-bold transition-all cursor-pointer min-h-[40px]"
+                  className="px-4 py-2 rounded-full bg-[#0D2340] hover:bg-[#F5B800] text-[#ECE7DF] hover:text-[#0D2340] border border-[#F5B800]/35 text-xs font-bold transition-all cursor-pointer min-h-[40px] whitespace-nowrap shrink-0"
                 >
                   {lang === 'es' ? 'Cotizar' : 'Quote'}
                 </button>

@@ -56,25 +56,25 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         })}
       </svg>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-14 lg:pt-16 lg:pb-20 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-10 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-7 pb-12 sm:pt-12 sm:pb-16 lg:pt-14 lg:pb-20 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-center">
           
           {/* LEFT COLUMN: Dynamic Floating Black Asphalt Roof Shingles Composition (Zero People) */}
-          <div className="lg:col-span-6 relative flex items-center justify-center py-6 lg:py-4 order-2 lg:order-1">
+          <div className="lg:col-span-6 relative flex items-center justify-center py-2 sm:py-4 order-2 lg:order-1">
             {/* Circular Halftone Backdrop */}
             <div
               aria-hidden="true"
-              className="absolute w-[290px] h-[290px] sm:w-[410px] sm:h-[410px] rounded-full dot-matrix-bg opacity-65 pointer-events-none"
+              className="absolute w-[270px] h-[270px] sm:w-[400px] sm:h-[400px] rounded-full dot-matrix-bg opacity-65 pointer-events-none"
             />
             <div
               aria-hidden="true"
-              className="absolute w-[260px] h-[260px] sm:w-[360px] sm:h-[360px] rounded-full bg-gradient-to-tr from-[#0D2340] via-[#F5B800]/15 to-transparent blur-2xl pointer-events-none"
+              className="absolute w-[240px] h-[240px] sm:w-[350px] sm:h-[350px] rounded-full bg-gradient-to-tr from-[#0D2340] via-[#F5B800]/15 to-transparent blur-2xl pointer-events-none"
             />
 
-            {/* Crisp Minimal Geometric Accents (from reference layout) */}
+            {/* Crisp Minimal Geometric Accents */}
             <svg
               aria-hidden="true"
-              className="absolute top-3 left-6 sm:left-10 w-6 h-6 text-[#F5B800]/75 pointer-events-none"
+              className="hidden sm:block absolute top-3 left-8 w-6 h-6 text-[#F5B800]/75 pointer-events-none"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -84,21 +84,21 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </svg>
             <div
               aria-hidden="true"
-              className="absolute bottom-6 left-10 w-4 h-4 rounded-sm bg-[#F5B800] rotate-45 opacity-80 pointer-events-none"
+              className="hidden sm:block absolute bottom-6 left-10 w-4 h-4 rounded-sm bg-[#F5B800] rotate-45 opacity-80 pointer-events-none"
             />
             <div
               aria-hidden="true"
-              className="absolute top-12 right-8 sm:right-12 w-7 h-7 rounded-full border-2 border-[#3B82F6]/60 pointer-events-none"
+              className="hidden sm:block absolute top-12 right-10 w-7 h-7 rounded-full border-2 border-[#3B82F6]/60 pointer-events-none"
             />
 
             {/* Architectural 3-Trade Floating Stack Showcase */}
-            <div className="relative w-full max-w-[460px] h-[320px] sm:h-[390px] flex items-center justify-center">
+            <div className="relative w-full max-w-[460px] h-[335px] sm:h-[410px] flex items-center justify-center">
               
               {/* Back-Upper Floating Slab: White Aluminum Window */}
               <motion.div
-                animate={shouldReduceMotion ? undefined : { y: [-6, 6, -6], rotate: [-6, -4, -6] }}
+                animate={shouldReduceMotion ? undefined : { y: [-5, 5, -5], rotate: [-5, -3, -5] }}
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute top-1 left-2 sm:left-4 w-[58%] h-[165px] sm:h-[205px] rounded-2xl overflow-hidden border border-[#F5B800]/45 shadow-[0_25px_50px_rgba(0,0,0,0.75)] bg-[#0A0F18]"
+                className="absolute top-1 left-2 sm:left-4 w-[54%] h-[150px] sm:h-[195px] rounded-2xl overflow-hidden border border-[#F5B800]/45 shadow-[0_25px_50px_rgba(0,0,0,0.75)] bg-[#0A0F18]"
               >
                 <img
                   src="/assets/aistudio/___5__156e6afc.jpeg"
@@ -110,11 +110,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#071426]/65 via-transparent to-[#F5B800]/10" />
               </motion.div>
 
-              {/* Center Primary Slab: Black Asphalt Shingles (Kept Intact) */}
+              {/* Center Primary Slab: Black Asphalt Shingles */}
               <motion.div
-                animate={shouldReduceMotion ? undefined : { y: [5, -7, 5] }}
+                animate={shouldReduceMotion ? undefined : { y: [4, -6, 4] }}
                 transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-                className="relative z-10 w-[80%] h-[195px] sm:h-[235px] rounded-2xl overflow-hidden border-2 border-[#F5B800]/60 shadow-[0_30px_65px_rgba(0,0,0,0.85)] bg-[#080C14]"
+                className="relative z-10 -translate-y-2 sm:-translate-y-3 w-[84%] sm:w-[80%] h-[190px] sm:h-[235px] rounded-2xl overflow-hidden border-2 border-[#F5B800]/60 shadow-[0_30px_65px_rgba(0,0,0,0.85)] bg-[#080C14]"
               >
                 <img
                   src="/images/black-asphalt-shingle-detail.jpg"
@@ -123,23 +123,23 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   className="w-full h-full object-cover brightness-95 contrast-125"
                   loading="eager"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#071426]/90 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#071426]/95 via-[#071426]/20 to-transparent" />
 
-                {/* Clean Technical Footer Inside Focal Shingle Card */}
-                <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-[11px] font-mono">
+                {/* Clean Technical Footer Anchored Left (Always Unobstructed by HVAC Front Card) */}
+                <div className="absolute bottom-3 left-3 sm:left-4 max-w-[60%] sm:max-w-[62%] flex flex-col gap-0.5 text-[10px] sm:text-[11px] font-mono leading-tight">
                   <span className="text-[#F5B800] font-bold flex items-center gap-1.5">
-                    <ShieldCheck className="w-4 h-4" />
-                    <span>BLACK ARCHITECTURAL SHINGLE</span>
+                    <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
+                    <span>BLACK SHINGLES</span>
                   </span>
-                  <span className="text-[#ECE7DF] font-bold">130 MPH</span>
+                  <span className="text-[#ECE7DF]/90 font-bold pl-5">130 MPH WIND RATED</span>
                 </div>
               </motion.div>
 
               {/* Lower-Right Small Front Floating Slab: Residential HVAC Unit */}
               <motion.div
-                animate={shouldReduceMotion ? undefined : { y: [-8, 5, -8], rotate: [7, 10, 7] }}
+                animate={shouldReduceMotion ? undefined : { y: [-6, 4, -6], rotate: [5, 8, 5] }}
                 transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute bottom-1 right-1 sm:right-2 z-20 w-[44%] h-[120px] sm:h-[145px] rounded-xl overflow-hidden border-2 border-[#F5B800]/55 shadow-[0_20px_40px_rgba(0,0,0,0.85)] bg-[#0A0F18]"
+                className="absolute bottom-1 right-2 sm:right-3 z-20 w-[40%] sm:w-[42%] h-[112px] sm:h-[140px] rounded-xl overflow-hidden border-2 border-[#F5B800]/55 shadow-[0_20px_40px_rgba(0,0,0,0.85)] bg-[#0A0F18]"
               >
                 <img
                   src="/assets/aistudio/56fa90dc5649de8acf480f9a0b8ca669_b809d6f9.jpg"
@@ -154,37 +154,37 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Editorial Typography Stack (Inspired by Reference) */}
-          <div className="lg:col-span-6 space-y-5 order-1 lg:order-2">
+          {/* RIGHT COLUMN: Editorial Typography Stack */}
+          <div className="lg:col-span-6 space-y-4 sm:space-y-5 order-1 lg:order-2">
             
             {/* Unboxed Quiet Kicker */}
-            <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-[0.2em] text-[#F5B800] uppercase">
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] sm:text-xs font-mono font-bold tracking-[0.12em] sm:tracking-[0.2em] text-[#F5B800] uppercase">
               <span>{t.hero.kicker}</span>
               <span aria-hidden="true">·</span>
-              <span className="text-[#ECE7DF]/70">NV LIC #0091842</span>
+              <span className="text-[#ECE7DF]/75">NV LIC #0091842</span>
             </div>
 
             {/* Bold Kinetic Two-Tone Headline (White + Italic Solar Gold) */}
-            <h1 className="text-3xl sm:text-5xl lg:text-[52px] font-black tracking-tight leading-[1.08] font-display text-balance">
+            <h1 className="text-[28px] sm:text-5xl lg:text-[50px] xl:text-[54px] font-black tracking-tight leading-[1.08] font-display text-balance">
               <span className="block text-[#ECE7DF]">{t.hero.titleLine1}</span>
               <span className="block italic text-gold-metallic mt-1">{t.hero.titleLine2}</span>
             </h1>
 
             {/* Clean Value Statement */}
-            <p className="text-sm sm:text-base text-[#ECE7DF]/80 leading-relaxed max-w-xl">
+            <p className="text-sm sm:text-base text-[#ECE7DF]/85 leading-relaxed max-w-xl">
               {t.hero.subtitle}
             </p>
 
             {/* Primary Rounded CTA + 3 Compact Action Buttons */}
-            <div className="pt-2 space-y-4">
+            <div className="pt-1 sm:pt-2 space-y-3 sm:space-y-4">
               <div>
                 <button
                   type="button"
                   onClick={onScrollToForm}
-                  className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#F5B800] hover:bg-[#FFD54F] active:scale-[0.98] text-[#0D2340] font-black text-xs sm:text-sm uppercase tracking-wider shadow-xl shadow-[#F5B800]/25 transition-all flex items-center justify-center gap-2.5 cursor-pointer group min-h-[48px]"
+                  className="w-full sm:w-auto px-7 sm:px-8 py-4 rounded-full bg-[#F5B800] hover:bg-[#FFD54F] active:scale-[0.98] text-[#0D2340] font-black text-xs sm:text-sm uppercase tracking-wider shadow-xl shadow-[#F5B800]/25 transition-all flex items-center justify-center gap-2.5 cursor-pointer group min-h-[48px]"
                 >
                   <span>{t.hero.ctaPrimary}</span>
-                  <ArrowRight className="w-4 h-4 text-[#0D2340] group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 text-[#0D2340] group-hover:translate-x-1 transition-transform shrink-0" />
                 </button>
               </div>
 
@@ -192,7 +192,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <div className="grid grid-cols-3 sm:flex sm:flex-wrap items-center gap-2 sm:gap-3">
                 <a
                   href={`tel:${t.brand.rawPhone}`}
-                  className="px-3.5 py-2.5 rounded-full bg-[#0D2340]/90 hover:bg-[#0D2340] border border-[#4A4F54]/50 hover:border-[#F5B800]/60 text-[#ECE7DF] hover:text-[#F5B800] text-xs font-bold flex items-center justify-center gap-1.5 transition-colors min-h-[42px]"
+                  className="px-2 sm:px-4 py-2.5 rounded-full bg-[#0D2340]/90 hover:bg-[#0D2340] border border-[#4A4F54]/50 hover:border-[#F5B800]/60 text-[#ECE7DF] hover:text-[#F5B800] text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1.5 transition-colors min-h-[42px] whitespace-nowrap"
                   title={t.brand.phone}
                 >
                   <Phone className="w-3.5 h-3.5 text-[#F5B800] shrink-0" />
@@ -205,7 +205,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                       ? 'Hola Starlight Solutions, requiero una inspección gratis para mi techo en Las Vegas.'
                       : 'Hello Starlight Solutions, I would like a free roof inspection in Las Vegas.'
                   )}`}
-                  className="px-3.5 py-2.5 rounded-full bg-[#0D2340]/90 hover:bg-[#0D2340] border border-[#4A4F54]/50 hover:border-[#F5B800]/60 text-[#ECE7DF] hover:text-[#F5B800] text-xs font-bold flex items-center justify-center gap-1.5 transition-colors min-h-[42px]"
+                  className="px-2 sm:px-4 py-2.5 rounded-full bg-[#0D2340]/90 hover:bg-[#0D2340] border border-[#4A4F54]/50 hover:border-[#F5B800]/60 text-[#ECE7DF] hover:text-[#F5B800] text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1.5 transition-colors min-h-[42px] whitespace-nowrap"
                   title="SMS"
                 >
                   <Send className="w-3.5 h-3.5 text-[#F5B800] shrink-0" />
@@ -220,7 +220,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3.5 py-2.5 rounded-full bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/50 text-emerald-300 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors min-h-[42px]"
+                  className="px-2 sm:px-4 py-2.5 rounded-full bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/50 text-emerald-300 text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1.5 transition-colors min-h-[42px] whitespace-nowrap"
                   title="WhatsApp"
                 >
                   <MessageSquare className="w-3.5 h-3.5 text-emerald-400 shrink-0" />

@@ -13,32 +13,32 @@ export const AboutUsView: React.FC<AboutUsViewProps> = ({ lang, onOpenForm }) =>
   const t = translations[lang];
 
   return (
-    <div className="py-16 bg-[#071426] text-[#ECE7DF] animate-in fade-in duration-300">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
+    <div className="py-10 sm:py-16 bg-[#071426] text-[#ECE7DF] animate-in fade-in duration-300 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-14">
         
-        {/* Header - Wide layout in 2 lines, taking full advantage of page width */}
+        {/* Header - Wide layout taking full advantage of page width */}
         <div className="text-center max-w-5xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0D2340] border border-[#F5B800]/40 text-[#F5B800] text-xs font-mono font-bold tracking-wider uppercase mb-3 shadow">
-            <Compass className="w-4 h-4 text-[#F5B800]" />
+          <div className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-[0.2em] text-[#F5B800] uppercase mb-3">
+            <Compass className="w-4 h-4 text-[#F5B800] shrink-0" />
             <span>{t.aboutUsView.badge}</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight font-display text-white leading-tight max-w-4xl mx-auto">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight font-display text-white leading-tight max-w-4xl mx-auto text-balance">
             {t.aboutUsView.title}
           </h1>
-          <p className="mt-3 text-base sm:text-lg text-[#ECE7DF]/80 leading-relaxed max-w-3xl mx-auto">
+          <p className="mt-3 text-sm sm:text-lg text-[#ECE7DF]/80 leading-relaxed max-w-3xl mx-auto">
             {t.aboutUsView.subtitle}
           </p>
         </div>
 
         {/* Brand Showcase */}
-        <div className="p-8 sm:p-10 rounded-3xl bg-[#0D2340] border border-[#F5B800]/30 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="p-6 sm:p-10 rounded-3xl bg-[#0D2340] border border-[#F5B800]/30 shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
             <OfficialLogo size="lg" variant="full" showSubtitle />
             <p className="text-sm text-[#ECE7DF]/80 mt-3 max-w-md leading-relaxed">
               {t.brand.specialty} · {t.brand.location}
             </p>
           </div>
-          <div className="p-4 rounded-2xl bg-[#071426] border border-[#4A4F54]/40 text-xs font-mono space-y-1 text-[#ECE7DF]/90 text-right shrink-0">
+          <div className="p-4 rounded-2xl bg-[#071426] border border-[#4A4F54]/40 text-xs font-mono space-y-1 text-[#ECE7DF]/90 text-left md:text-right w-full md:w-auto shrink-0">
             <span className="text-[#F5B800] font-bold block">{t.brand.license}</span>
             <span>Commercial & Residential Monitored</span>
             <span className="text-emerald-400 block">Active Status · Good Standing</span>
@@ -46,7 +46,7 @@ export const AboutUsView: React.FC<AboutUsViewProps> = ({ lang, onOpenForm }) =>
         </div>
 
         {/* Narrative */}
-        <div className="space-y-5 text-base sm:text-lg text-[#ECE7DF]/85 leading-relaxed bg-[#0D2340]/40 p-8 sm:p-10 rounded-3xl border border-[#4A4F54]/30">
+        <div className="space-y-5 text-sm sm:text-lg text-[#ECE7DF]/85 leading-relaxed bg-[#0D2340]/40 p-6 sm:p-10 rounded-3xl border border-[#4A4F54]/30">
           <p>{t.aboutUsView.p1}</p>
           <p>{t.aboutUsView.p2}</p>
         </div>
@@ -89,10 +89,10 @@ export const AboutUsView: React.FC<AboutUsViewProps> = ({ lang, onOpenForm }) =>
           <button
             type="button"
             onClick={onOpenForm}
-            className="px-8 py-4 rounded-xl bg-[#F5B800] hover:bg-[#FFD54F] text-[#0D2340] font-black text-xs sm:text-sm uppercase tracking-wider transition-all shadow-xl shadow-[#F5B800]/25 cursor-pointer inline-flex items-center gap-2"
+            className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#F5B800] hover:bg-[#FFD54F] text-[#0D2340] font-black text-xs sm:text-sm uppercase tracking-wider transition-all shadow-xl shadow-[#F5B800]/25 cursor-pointer inline-flex items-center justify-center gap-2 min-h-[48px]"
           >
             <span>{lang === 'es' ? 'Solicitar Inspección Gratuita' : 'Request Free Inspection'}</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 shrink-0" />
           </button>
         </div>
 

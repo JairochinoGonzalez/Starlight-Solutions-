@@ -39,15 +39,15 @@ export const WindowsView: React.FC<WindowsViewProps> = ({ lang, onOpenForm }) =>
   ];
 
   return (
-    <div className="py-12 sm:py-16 bg-[#071426] text-[#ECE7DF] animate-in fade-in duration-300 relative z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
+    <div className="py-10 sm:py-16 bg-[#071426] text-[#ECE7DF] animate-in fade-in duration-300 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-16">
         {/* Header */}
         <div className="text-center max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-[0.2em] text-[#F5B800] uppercase mb-3">
-            <AppWindow className="w-4 h-4 text-[#F5B800]" />
+            <AppWindow className="w-4 h-4 text-[#F5B800] shrink-0" />
             <span>{t.windowsView.badge}</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight font-display text-white leading-tight text-balance">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight font-display text-white leading-tight text-balance">
             {t.windowsView.title}
           </h1>
           <p className="mt-4 text-sm sm:text-lg text-[#ECE7DF]/80 leading-relaxed max-w-3xl mx-auto">
@@ -56,13 +56,13 @@ export const WindowsView: React.FC<WindowsViewProps> = ({ lang, onOpenForm }) =>
         </div>
 
         {/* 3 Real Aluminum Window Photos */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
           {windowsGallery.map((item, idx) => (
             <div
               key={idx}
               className="rounded-3xl bg-[#0D2340] border border-[#F5B800]/30 overflow-hidden shadow-xl flex flex-col justify-between group"
             >
-              <div className="relative h-72 sm:h-80 w-full overflow-hidden border-b border-[#4A4F54]/40 bg-[#071426]">
+              <div className="relative h-60 sm:h-64 lg:h-72 w-full overflow-hidden border-b border-[#4A4F54]/40 bg-[#071426]">
                 <img
                   src={item.src}
                   alt={item.title}
@@ -71,8 +71,8 @@ export const WindowsView: React.FC<WindowsViewProps> = ({ lang, onOpenForm }) =>
                   loading="eager"
                 />
               </div>
-              <div className="p-6">
-                <h3 className="text-lg font-bold text-[#F5B800] font-display mb-2">{item.title}</h3>
+              <div className="p-5 lg:p-6">
+                <h3 className="text-base lg:text-lg font-bold text-[#F5B800] font-display mb-2">{item.title}</h3>
                 <p className="text-xs sm:text-sm text-[#ECE7DF]/80 leading-relaxed">{item.caption}</p>
               </div>
             </div>

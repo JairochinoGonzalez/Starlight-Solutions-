@@ -51,7 +51,7 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ lang, onCt
   }, [isDragging, updatePosition]);
 
   return (
-    <section id="comparador" className="relative py-16 sm:py-24 bg-[#071426] border-b border-[#4A4F54]/30 overflow-hidden z-10">
+    <section id="comparador" className="scroll-mt-20 relative py-14 sm:py-24 bg-[#071426] border-b border-[#4A4F54]/30 overflow-hidden z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         
         {/* Section Header */}
@@ -134,10 +134,11 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ lang, onCt
               <div className="absolute inset-0 bg-gradient-to-t from-[#071426]/60 via-transparent to-transparent pointer-events-none" />
 
               {/* AFTER Label */}
-              <div className="absolute top-3 right-3 sm:top-5 sm:right-5 z-20 flex flex-col items-end max-w-[46%]">
-                <div className="px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-[#0D2340]/92 backdrop-blur-md border border-[#F5B800] text-[#F5B800] text-[10px] sm:text-xs font-black shadow-lg flex items-center gap-1.5">
+              <div className="absolute top-3 right-3 sm:top-5 sm:right-5 z-20 flex flex-col items-end">
+                <div className="px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-[#0D2340]/92 backdrop-blur-md border border-[#F5B800] text-[#F5B800] text-[10px] sm:text-xs font-black shadow-lg flex items-center gap-1.5 whitespace-nowrap">
                   <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
-                  <span className="truncate">{t.beforeAfter.afterLabel}</span>
+                  <span className="sm:hidden">{lang === 'es' ? 'DESPUÉS' : 'AFTER'}</span>
+                  <span className="hidden sm:inline">{t.beforeAfter.afterLabel}</span>
                 </div>
                 <span className="hidden md:block text-[11px] text-[#ECE7DF] mt-1.5 bg-[#0D2340]/85 px-2.5 py-1 rounded-lg border border-[#4A4F54]/40 text-right">
                   {t.beforeAfter.afterDesc}
@@ -206,10 +207,11 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ lang, onCt
               </svg>
 
               {/* BEFORE Label */}
-              <div className="absolute top-3 left-3 sm:top-5 sm:left-5 z-20 flex flex-col items-start max-w-[46%]">
-                <div className="px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-slate-950/92 backdrop-blur-md border border-rose-500/75 text-rose-300 text-[10px] sm:text-xs font-black shadow-lg flex items-center gap-1.5">
+              <div className="absolute top-3 left-3 sm:top-5 sm:left-5 z-20 flex flex-col items-start">
+                <div className="px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-slate-950/92 backdrop-blur-md border border-rose-500/75 text-rose-300 text-[10px] sm:text-xs font-black shadow-lg flex items-center gap-1.5 whitespace-nowrap">
                   <AlertTriangle className="w-3.5 h-3.5 text-rose-400 shrink-0" />
-                  <span className="truncate">{t.beforeAfter.beforeLabel}</span>
+                  <span className="sm:hidden">{lang === 'es' ? 'ANTES' : 'BEFORE'}</span>
+                  <span className="hidden sm:inline">{t.beforeAfter.beforeLabel}</span>
                 </div>
                 <span className="hidden md:block text-[11px] text-[#ECE7DF] mt-1.5 bg-slate-950/85 px-2.5 py-1 rounded-lg border border-[#4A4F54]/40">
                   {t.beforeAfter.beforeDesc}
@@ -233,7 +235,10 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ lang, onCt
 
             {/* Bottom Callout Bar */}
             <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 z-20 p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl bg-[#0D2340]/90 backdrop-blur-md border border-[#F5B800]/25 flex items-center justify-between gap-2 text-[11px] sm:text-xs text-[#ECE7DF]">
-              <span className="font-semibold truncate">
+              <span className="font-semibold sm:hidden">
+                {lang === 'es' ? 'Desliza para comparar' : 'Slide to compare'}
+              </span>
+              <span className="font-semibold hidden sm:inline">
                 {lang === 'es' ? 'Desliza para comparar el mismo techo' : 'Slide across the exact same roof'}
               </span>
               {onCtaClick && (
@@ -244,7 +249,7 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ lang, onCt
                     onCtaClick();
                   }}
                   onPointerDown={(e) => e.stopPropagation()}
-                  className="px-3 py-1.5 rounded-full bg-[#F5B800] hover:bg-[#FFD54F] text-[#0D2340] font-black uppercase text-[10px] sm:text-xs tracking-wider transition-all cursor-pointer shrink-0"
+                  className="px-3 py-1.5 rounded-full bg-[#F5B800] hover:bg-[#FFD54F] text-[#0D2340] font-black uppercase text-[10px] sm:text-xs tracking-wider transition-all cursor-pointer shrink-0 whitespace-nowrap"
                 >
                   {lang === 'es' ? 'Inspeccionar Techo' : 'Inspect Roof'}
                 </button>

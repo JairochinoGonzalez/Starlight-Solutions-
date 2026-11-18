@@ -19,7 +19,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, onNavigate, onOpenSchedule
   };
 
   return (
-    <footer className="bg-[#050D18] text-[#ECE7DF] border-t border-[#4A4F54]/40 pt-16 pb-24 sm:pb-20 text-xs sm:text-sm relative z-10">
+    <footer className="bg-[#050D18] text-[#ECE7DF] border-t border-[#4A4F54]/40 pt-14 sm:pt-16 pb-24 text-xs sm:text-sm relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main Footer Grid */}
@@ -135,8 +135,8 @@ export const Footer: React.FC<FooterProps> = ({ lang, onNavigate, onOpenSchedule
                 href={`mailto:${t.brand.email}`}
                 className="flex items-center gap-2 text-[#ECE7DF]/75 hover:text-[#F5B800] transition-colors"
               >
-                <Mail className="w-4 h-4 text-[#F5B800]" />
-                <span>{t.brand.email}</span>
+                <Mail className="w-4 h-4 text-[#F5B800] shrink-0" />
+                <span className="break-all">{t.brand.email}</span>
               </a>
 
               <div className="pt-2">
@@ -145,7 +145,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, onNavigate, onOpenSchedule
                   onClick={onOpenSchedule}
                   className="w-full py-3.5 px-5 rounded-full bg-[#F5B800] hover:bg-[#FFD54F] text-[#0D2340] font-black uppercase text-xs tracking-wider transition-all shadow-md shadow-[#F5B800]/20 flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
                 >
-                  <Calendar className="w-4 h-4" />
+                  <Calendar className="w-4 h-4 shrink-0" />
                   <span>{t.nav.ctaInspection}</span>
                 </button>
               </div>
@@ -155,11 +155,11 @@ export const Footer: React.FC<FooterProps> = ({ lang, onNavigate, onOpenSchedule
         </div>
 
         {/* Bottom Rights */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#ECE7DF]/60">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#ECE7DF]/60 text-center sm:text-left">
           <p>© {new Date().getFullYear()} Starlight Solutions LLC. {t.footer.rights}</p>
-          <div className="flex flex-wrap items-center gap-3 font-mono text-[11px]">
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-3 font-mono text-[11px]">
             <span>{t.footer.nvLicense}</span>
-            <span>·</span>
+            <span aria-hidden="true">·</span>
             <button
               type="button"
               onClick={() => handleLinkClick('privacy-policy')}

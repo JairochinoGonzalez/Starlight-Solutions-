@@ -21,7 +21,7 @@
   body {
     background-color: #071426;
     color: #ECE7DF;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 }
 
