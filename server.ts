@@ -12,6 +12,7 @@ const app = express();
 const PORT = Number(process.env.PORT) || 3000;
 
 app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 
 interface LeadRecord {
   ticketId: string;
@@ -161,6 +162,11 @@ app.post('/api/leads', async (req, res) => {
     console.error('Error processing lead:', err);
     return res.status(500).json({ ok: false, error: 'Internal server error processing lead.' });
   }
+});
+
+// Fallback if a native HTML form POST hits root or /gracias directly
+app.post(['/', '/gracias', '/thank-you'], (_req, res) => {
+  res.redirect(303, '/gracias');
 });
 
 async function startServer() {

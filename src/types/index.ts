@@ -6,7 +6,8 @@ export type AppView =
   | 'windows'
   | 'hvac'
   | 'about-us'
-  | 'privacy-policy';
+  | 'privacy-policy'
+  | 'thank-you';
 
 export type ServiceOption =
   | 'roof_repair'
@@ -23,4 +24,13 @@ export interface InspectionFormData {
   service: ServiceOption;
   privacyConsent: boolean;
   notes?: string;
+}
+
+export interface LeadSubmissionReceipt {
+  ticketId: string;
+  fullName?: string;
+  phone?: string;
+  propertyAddress?: string;
+  email?: string;
+  serviceLabel?: string;
 }

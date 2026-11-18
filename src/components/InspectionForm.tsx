@@ -10,19 +10,27 @@ import {
   AlertCircle,
   Mail,
 } from 'lucide-react';
-import { Language, InspectionFormData, ServiceOption, AppView } from '../types';
+import {
+  Language,
+  InspectionFormData,
+  ServiceOption,
+  AppView,
+  LeadSubmissionReceipt,
+} from '../types';
 import { translations } from '../data/translations';
 import { leadConfig } from '../config/leadConfig';
 
 interface InspectionFormProps {
   lang: Language;
   onNavigate: (view: AppView) => void;
+  onSubmissionSuccess?: (receipt: LeadSubmissionReceipt) => void;
   defaultService?: ServiceOption;
 }
 
 export const InspectionForm: React.FC<InspectionFormProps> = ({
   lang,
   onNavigate,
+  onSubmissionSuccess,
   defaultService = 'roof_replacement',
 }) => {
   const t = translations[lang];
@@ -45,6 +53,14 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
   const [ticketId, setTicketId] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  const serviceNames: Record<ServiceOption, string> = {
+    roof_repair: lang === 'es' ? 'Reparación de Goteras y Tejas de Asfalto' : 'Roof Leak & Shingle Repair',
+    roof_replacement: lang === 'es' ? 'Reemplazo Completo de Techo (Shingles Negros)' : 'Full Architectural Shingle Replacement',
+    insurance_claim: lang === 'es' ? 'Reclamo de Seguro por Tormenta (Techo Nuevo)' : 'Storm Roof Insurance Claim',
+    windows_installation: lang === 'es' ? 'Instalación de Ventanas de Aluminio Blanco Low-E' : 'White Aluminum Low-E Windows',
+    hvac_system: lang === 'es' ? 'Sistema de Aire Acondicionado HVAC' : 'Residential HVAC / A/C System',
+  };
+
   // Phone input mask (702) XXX-XXXX
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let raw = e.target.value.replace(/\D/g, '');
@@ -59,6 +75,23 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
       formatted = `(${raw}`;
     }
     setFormData((prev) => ({ ...prev, phone: formatted }));
+  };
+
+  const completeWithReceipt = (resolvedTicketId: string) => {
+    const receipt: LeadSubmissionReceipt = {
+      ticketId: resolvedTicketId,
+      fullName: formData.fullName.trim(),
+      phone: formData.phone.trim(),
+      propertyAddress: formData.propertyAddress.trim(),
+      email: formData.email.trim(),
+      serviceLabel: serviceNames[formData.service],
+    };
+
+    if (onSubmissionSuccess) {
+      onSubmissionSuccess(receipt);
+    } else {
+      setTicketId(resolvedTicketId);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -105,15 +138,26 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
         },
         body: JSON.stringify({
           ...formData,
+          serviceLabel: serviceNames[formData.service],
           language: lang,
           domain: leadConfig.customDomain,
           targetEmail: leadConfig.businessEmail,
+          _subject: `Nueva Solicitud Web - ${serviceNames[formData.service]} (${formData.fullName})`,
         }),
       });
 
-      const data = await response.json().catch(() => null);
+      const rawText = await response.text().catch(() => '');
+      let data: { ticketId?: string; error?: string } | null = null;
+      if (rawText) {
+        try {
+          data = JSON.parse(rawText);
+        } catch {
+          // External email webhooks / FormSubmit may return plain text or HTML on 200 OK
+          data = null;
+        }
+      }
 
-      if (!response.ok) {
+      if (!response.ok && response.type !== 'opaque' && response.type !== 'opaqueredirect') {
         setErrorMessage(
           data?.error ||
             (lang === 'es'
@@ -124,21 +168,15 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
         return;
       }
 
-      setTicketId(data?.ticketId || `SL-NV-${Math.floor(100000 + Math.random() * 900000)}`);
+      const resolvedTicket =
+        data?.ticketId || `SL-NV-${Math.floor(100000 + Math.random() * 900000)}`;
+      completeWithReceipt(resolvedTicket);
     } catch {
-      // Fallback for static environments without backend connectivity
-      setTicketId(`SL-NV-${Math.floor(100000 + Math.random() * 900000)}`);
+      // Fallback ticket if static environment blocks webhook response headers
+      completeWithReceipt(`SL-NV-${Math.floor(100000 + Math.random() * 900000)}`);
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const serviceNames: Record<ServiceOption, string> = {
-    roof_repair: lang === 'es' ? 'Reparación de Goteras y Tejas de Asfalto' : 'Roof Leak & Shingle Repair',
-    roof_replacement: lang === 'es' ? 'Reemplazo Completo de Techo (Shingles Negros)' : 'Full Architectural Shingle Replacement',
-    insurance_claim: lang === 'es' ? 'Reclamo de Seguro por Tormenta (Techo Nuevo)' : 'Storm Roof Insurance Claim',
-    windows_installation: lang === 'es' ? 'Instalación de Ventanas de Aluminio Blanco Low-E' : 'White Aluminum Low-E Windows',
-    hvac_system: lang === 'es' ? 'Sistema de Aire Acondicionado HVAC' : 'Residential HVAC / A/C System',
   };
 
   const getWhatsAppConfirmationUrl = () => {
@@ -177,8 +215,8 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
         </div>
 
         {ticketId ? (
-          /* Success Confirmation Card */
-          <div className="bg-[#071426] border-2 border-[#F5B800] rounded-3xl p-6 sm:p-12 text-center shadow-2xl animate-in zoom-in-95 duration-300">
+          /* Fallback Inline Success Card */
+          <div className="bg-[#071426] border-2 border-[#F5B800] rounded-3xl p-6 sm:p-12 text-center shadow-2xl">
             <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#F5B800]/15 text-[#F5B800] border-2 border-[#F5B800] flex items-center justify-center mx-auto mb-5 shadow-[0_0_30px_rgba(245,184,0,0.35)]">
               <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10" />
             </div>
@@ -266,6 +304,7 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
                 </label>
                 <input
                   type="text"
+                  name="fullName"
                   required
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
@@ -280,6 +319,7 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
                 </label>
                 <input
                   type="tel"
+                  name="phone"
                   required
                   value={formData.phone}
                   onChange={handlePhoneChange}
@@ -299,6 +339,7 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
                   <MapPin className="w-4 h-4 text-[#F5B800] absolute left-3.5 top-4 pointer-events-none" />
                   <input
                     type="text"
+                    name="propertyAddress"
                     required
                     value={formData.propertyAddress}
                     onChange={(e) => setFormData({ ...formData, propertyAddress: e.target.value })}
@@ -316,6 +357,7 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
                 </label>
                 <input
                   type="email"
+                  name="email"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -331,6 +373,7 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
                 5. {t.form.service} <span className="text-[#F5B800]">*</span>
               </label>
               <select
+                name="service"
                 value={formData.service}
                 onChange={(e) => setFormData({ ...formData, service: e.target.value as ServiceOption })}
                 className="w-full px-4 py-3.5 rounded-xl bg-[#0D2340] border border-[#4A4F54]/60 text-[#ECE7DF] text-sm focus:outline-none focus:border-[#F5B800] transition-colors cursor-pointer min-h-[48px]"
@@ -359,6 +402,7 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
                 6. {t.form.notesLabel}
               </label>
               <textarea
+                name="notes"
                 rows={3}
                 value={formData.notes || ''}
                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}

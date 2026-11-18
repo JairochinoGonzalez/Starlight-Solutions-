@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
-import { Language, AppView } from './types';
+import React, { useState, useEffect } from 'react';
+import { Language, AppView, LeadSubmissionReceipt } from './types';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { BeforeAfterSlider } from './components/BeforeAfterSlider';
@@ -15,17 +15,81 @@ import { WindowsView } from './views/WindowsView';
 import { HvacView } from './views/HvacView';
 import { AboutUsView } from './views/AboutUsView';
 import { PrivacyPolicyView } from './views/PrivacyPolicyView';
+import { ThankYouView } from './views/ThankYouView';
 import { Footer } from './components/Footer';
 import { FloatingCTA } from './components/FloatingCTA';
 import { FloatingShingles } from './components/FloatingShingles';
 
+function detectInitialView(): AppView {
+  if (typeof window === 'undefined') return 'home';
+
+  const path = window.location.pathname.toLowerCase();
+  const search = new URLSearchParams(window.location.search);
+  const hash = window.location.hash.toLowerCase();
+
+  if (
+    path.includes('/gracias') ||
+    path.includes('/thank-you') ||
+    path.includes('/thanks') ||
+    search.get('submitted') === 'true' ||
+    search.get('gracias') === 'true' ||
+    search.get('success') === 'true' ||
+    hash === '#gracias' ||
+    hash === '#thank-you'
+  ) {
+    return 'thank-you';
+  }
+
+  if (path.includes('/privacidad') || path.includes('/privacy')) {
+    return 'privacy-policy';
+  }
+
+  return 'home';
+}
+
 export default function App() {
   const [lang, setLang] = useState<Language>('es');
-  const [currentView, setCurrentView] = useState<AppView>('home');
+  const [currentView, setCurrentView] = useState<AppView>(detectInitialView);
+  const [lastReceipt, setLastReceipt] = useState<LeadSubmissionReceipt | null>(null);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentView(detectInitialView());
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const navigateTo = (view: AppView) => {
+    setCurrentView(view);
+    if (typeof window !== 'undefined' && view !== 'thank-you') {
+      if (window.location.pathname !== '/') {
+        window.history.pushState({}, '', '/');
+      }
+    }
+  };
+
+  const handleSubmissionSuccess = (receipt: LeadSubmissionReceipt) => {
+    setLastReceipt(receipt);
+    setCurrentView('thank-you');
+    if (typeof window !== 'undefined') {
+      window.history.pushState({}, '', '/gracias');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleReturnHomeFromThankYou = () => {
+    setLastReceipt(null);
+    setCurrentView('home');
+    if (typeof window !== 'undefined') {
+      window.history.pushState({}, '', '/');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   const scrollToSection = (id: string) => {
     if (currentView !== 'home') {
-      setCurrentView('home');
+      navigateTo('home');
       setTimeout(() => {
         const el = document.getElementById(id);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -49,7 +113,7 @@ export default function App() {
       <Navbar
         currentView={currentView}
         lang={lang}
-        onNavigate={setCurrentView}
+        onNavigate={navigateTo}
         onLanguageChange={setLang}
         onOpenSchedule={handleOpenForm}
       />
@@ -73,14 +137,15 @@ export default function App() {
             {/* Bento Grid with Roofing, Insurance, White Aluminum Windows & HVAC */}
             <AppleBentoGrid
               lang={lang}
-              onNavigate={setCurrentView}
+              onNavigate={navigateTo}
               onScrollToForm={handleOpenForm}
             />
 
             {/* Lead Capture Form Ready for Custom Domain Email */}
             <InspectionForm
               lang={lang}
-              onNavigate={setCurrentView}
+              onNavigate={navigateTo}
+              onSubmissionSuccess={handleSubmissionSuccess}
             />
           </>
         )}
@@ -93,7 +158,8 @@ export default function App() {
             />
             <InspectionForm
               lang={lang}
-              onNavigate={setCurrentView}
+              onNavigate={navigateTo}
+              onSubmissionSuccess={handleSubmissionSuccess}
               defaultService="insurance_claim"
             />
           </>
@@ -107,7 +173,8 @@ export default function App() {
             />
             <InspectionForm
               lang={lang}
-              onNavigate={setCurrentView}
+              onNavigate={navigateTo}
+              onSubmissionSuccess={handleSubmissionSuccess}
               defaultService="windows_installation"
             />
           </>
@@ -121,7 +188,8 @@ export default function App() {
             />
             <InspectionForm
               lang={lang}
-              onNavigate={setCurrentView}
+              onNavigate={navigateTo}
+              onSubmissionSuccess={handleSubmissionSuccess}
               defaultService="hvac_system"
             />
           </>
@@ -135,7 +203,8 @@ export default function App() {
             />
             <InspectionForm
               lang={lang}
-              onNavigate={setCurrentView}
+              onNavigate={navigateTo}
+              onSubmissionSuccess={handleSubmissionSuccess}
               defaultService="roof_replacement"
             />
           </>
@@ -144,7 +213,15 @@ export default function App() {
         {currentView === 'privacy-policy' && (
           <PrivacyPolicyView
             lang={lang}
-            onNavigateHome={() => setCurrentView('home')}
+            onNavigateHome={() => navigateTo('home')}
+          />
+        )}
+
+        {currentView === 'thank-you' && (
+          <ThankYouView
+            lang={lang}
+            receipt={lastReceipt}
+            onReturnHome={handleReturnHomeFromThankYou}
           />
         )}
       </main>
@@ -152,7 +229,7 @@ export default function App() {
       {/* Footer */}
       <Footer
         lang={lang}
-        onNavigate={setCurrentView}
+        onNavigate={navigateTo}
         onOpenSchedule={handleOpenForm}
       />
 
