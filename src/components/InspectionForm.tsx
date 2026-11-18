@@ -247,12 +247,12 @@ export const InspectionForm: React.FC<InspectionFormProps> = ({
               </span>
             )}
             <h3 className="text-2xl sm:text-4xl font-black text-[#ECE7DF] mb-3 font-display text-balance">
-              {lang === 'es' ? '¡Gracias! Hemos recibido tu solicitud' : 'Thank You! We Have Received Your Request'}
+              {lang === 'es' ? '¡Solicitud recibida!' : 'Request Received!'}
             </h3>
             <p className="text-sm sm:text-base text-[#ECE7DF]/85 max-w-2xl mx-auto leading-relaxed mb-6">
               {lang === 'es'
-                ? 'Un especialista de Starlight Solutions se pondrá en contacto contigo en menos de 24 horas para coordinar tu cita previa gratuita y ayudarte en tu caso.'
-                : 'A Starlight Solutions specialist will contact you within 24 hours to schedule your complimentary preliminary appointment and assist with your case.'}
+                ? '¡Gracias! Hemos recibido tu solicitud. Un especialista de Starlight Solutions se pondrá en contacto contigo en menos de 24 horas para coordinar tu cita previa gratuita y ayudarte en tu caso.'
+                : 'Thank you! We have received your request. A Starlight Solutions specialist will contact you within 24 hours to schedule your complimentary preliminary appointment and assist with your case.'}
             </p>
 
             {/* Submitted Case Summary */}
