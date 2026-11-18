@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --navy-official: #0D2340;
+  --navy-deep: #071426;
+  --solar-gold: #F5B800;
+  --carbon-grey: #4A4F54;
+  --sand-white: #ECE7DF;
+}
+
+@layer base {
+  html {
+    font-family: 'Plus Jakarta Sans', 'Montserrat', system-ui, sans-serif;
+    scroll-behavior: smooth;
+    background-color: #071426;
+    color: #ECE7DF;
+  }
+
+  body {
+    background-color: #071426;
+    color: #ECE7DF;
+    overflow-x: hidden;
+  }
+}
+
+.font-display {
+  font-family: 'Syne', 'Montserrat', sans-serif;
+}
+
+.font-brand-black {
+  font-family: 'Montserrat', 'Syne', sans-serif;
+  font-weight: 900;
+}
+
+/* Modern Halftone Dot Matrix Pattern (inspired by reference) */
+.dot-matrix-bg {
+  background-image: radial-gradient(rgba(245, 184, 0, 0.16) 1.25px, transparent 1.25px);
+  background-size: 18px 18px;
+}
+
+.dot-matrix-subtle {
+  background-image: radial-gradient(rgba(236, 231, 223, 0.08) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Aurora Mesh Background */
+.aurora-mesh {
+  background: 
+    radial-gradient(ellipse 75% 50% at 22% 35%, rgba(245, 184, 0, 0.11), transparent 65%),
+    radial-gradient(circle at 82% 20%, rgba(29, 78, 216, 0.16), transparent 50%),
+    radial-gradient(circle at 85% 85%, rgba(245, 184, 0, 0.08), transparent 45%),
+    #071426;
+}
+
+/* Marquee keyframe animation */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
+
+/* Metallic gold gradient text */
+.text-gold-metallic {
+  background: linear-gradient(135deg, #FFF0B3 0%, #F5B800 45%, #D49A00 75%, #FFF5CC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glassmorphism card */
+.glass-panel {
+  background-color: rgba(13, 35, 64, 0.72);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(245, 184, 0, 0.18);
+  box-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.42);
+}
+
+.glass-panel-hover:hover {
+  border-color: rgba(245, 184, 0, 0.48);
+  box-shadow: 0 16px 44px -10px rgba(245, 184, 0, 0.22);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #071426;
+}
+::-webkit-scrollbar-thumb {
+  background: #4A4F54;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #F5B800;
+}
